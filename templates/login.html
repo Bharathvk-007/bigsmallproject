@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      background: radial-gradient(circle at top, #0f2027, #000);
+      font-family: Arial, sans-serif;
+      color: white;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .card {
+      width: 90%;
+      max-width: 360px;
+      background: #111;
+      padding: 22px;
+      border-radius: 15px;
+      box-shadow: 0 0 25px #00ffcc;
+      text-align: center;
+    }
+    h2 {
+      color: #00ffcc;
+      margin-bottom: 15px;
+    }
+    input, button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 12px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+    }
+    button {
+      background: #00ffcc;
+      font-weight: bold;
+    }
+    a {
+      color: #00ffcc;
+      text-decoration: none;
+    }
+    .error {
+      color: red;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h2>🔐 Login</h2>
+
+  <form method="post">
+    {% csrf_token %}
+    <input name="mobile" placeholder="Mobile Number" required>
+    <input type="password" name="password" placeholder="Password" required>
+    <button>Login</button>
+  </form>
+
+  {% if error %}
+    <div class="error">{{ error }}</div>
+  {% endif %}
+
+  <p style="margin-top:12px">
+    New user? <a href="/signup/">Signup here</a>
+  </p>
+</div>
+
+</body>
+</html>

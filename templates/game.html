@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Big Small Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      background: linear-gradient(135deg, #000, #0f2027);
+      font-family: Arial;
+      color: white;
+      margin: 0;
+      text-align: center;
+    }
+    .card {
+      width: 92%;
+      max-width: 380px;
+      margin: 80px auto;
+      background: #111;
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px #00ffcc;
+    }
+    h2 {
+      color: #00ffcc;
+    }
+    input, button {
+      width: 100%;
+      padding: 15px;
+      margin-top: 15px;
+      font-size: 18px;
+      border-radius: 10px;
+      border: none;
+    }
+    button {
+      background: #00ffcc;
+      font-weight: bold;
+    }
+    h1 {
+      margin-top: 20px;
+      color: #ffcc00;
+      font-size: 28px;
+    }
+    a {
+      display: block;
+      margin-top: 15px;
+      color: #00ffcc;
+      text-decoration: none;
+    }
+
+    /* Small screens */
+    @media (max-width: 360px) {
+      h1 {
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h2>🎮 BG HACKS</h2>
+
+  <input id="uid" placeholder="Enter 5-digit ID" maxlength="5">
+  <button onclick="play()">PLAY</button>
+
+  <h1 id="result">--</h1>
+
+  <a href="/history/">📜 History</a>
+  <a href="/logout/">🚪 Logout</a>
+</div>
+
+<script>
+function play() {
+  let id = document.getElementById("uid").value;
+
+  fetch("/play/", {
+    method: "POST",
+    headers: {
+      "X-CSRFToken": "{{ csrf_token }}",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: "id=" + id
+  })
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("result").innerText =
+      data.error ? data.error : data.result;
+  });
+}
+</script>
+
+</body>
+</html>
